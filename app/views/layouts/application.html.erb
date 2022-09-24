@@ -1,17 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html class="h-full">
   <head>
     <title>Blog</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="min-h-full bg-slate-50 text-slate-500">
+       <% if current_user %>
+        <h4 class="text-slate-400">You have successfully logged in using <%= current_user.email%> 😃</h4>
+       <%= button_to "Logout", destroy_user_session_path, method: :delete, data: {turbo: false} %>
+       <%  end %>
+      <main class="container mx-auto my-8 sm:my-12 flex flex-col items-center">
+      <%= yield %>
+    </main>
   </body>
 </html>
